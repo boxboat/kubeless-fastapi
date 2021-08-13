@@ -17,11 +17,11 @@ class Params:
     my_param: str = Query(None)
 
 
-def get_handler(req, context):
+def get_handler(event, context):
     try:
         data ={
-            "request_id": req.headers["request-id"],
-            "param": req.query_params["my_param"]
+            "request_id": event.headers["request-id"],
+            "param": event.query_params["my_param"]
         }
     except Exception:
         raise HTTPException(status_code=400, detail="request id and my_param must be set")

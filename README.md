@@ -70,11 +70,11 @@ class Params:
     my_param: str = Query(None)
 
 
-def get_handler(req, context):
+def get_handler(event, context):
     try:
         data ={
-            "request_id": req.headers["request-id"],
-            "param": req.query_params["my_param"]
+            "request_id": event.headers["request-id"],
+            "param": event.query_params["my_param"]
         }
     except Exception:
         raise HTTPException(status_code=400, detail="request id and my_param must be set")
@@ -113,14 +113,14 @@ class Params:
     request_id: str = Header(None)
 
 
-def post_handler(req, context):
+def post_handler(event, context):
     try:
-        kong_request_id = req.request.headers["request-id"]
+        kong_request_id = event.request.headers["request-id"]
     except Exception as e:
         raise HTTPException(status_code=400, detail="request id header required")
 
     try:
-        res = PostResponse(name=req.data.name, id=req.data.id, request=request_id)
+        res = PostResponse(name=event.data.name, id=event.data.id, request=request_id)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"some error happened {e}")
     return res
