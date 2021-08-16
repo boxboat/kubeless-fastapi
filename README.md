@@ -192,22 +192,22 @@ To leverage this runtime, add the following to the `data.runtime-images` propert
             "images": [
                 {
                     "command": "pip install --prefix=$KUBELESS_INSTALL_VOLUME -r $KUBELESS_DEPS_FILE",
-                    "image": "python:3.8",
+                    "image": "python:3.9",
                     "phase": "installation"
                 },
                 {
                     "env": {
-                        "PYTHONPATH": "$(KUBELESS_INSTALL_VOLUME)/lib/python3.8/site-packages:$(KUBELESS_INSTALL_VOLUME)"
+                        "PYTHONPATH": "$(KUBELESS_INSTALL_VOLUME)/lib/python3.9/site-packages:$(KUBELESS_INSTALL_VOLUME)"
                     },
                     "image": "boxboat/kubeless-python-fastapi",
                     "phase": "runtime"
                 }
             ],
             "name": "python-fastapi",
-            "version": "3.8"
+            "version": "3.9"
         }
     ]
 }
 ```
 
-Now you can run use the runtime name `kubeless function deploy --runtime python-fastapi3.8`
+Now you can run use the runtime name `kubeless function deploy --runtime python-fastapi3.9`
